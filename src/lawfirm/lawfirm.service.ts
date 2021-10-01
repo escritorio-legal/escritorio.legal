@@ -1,11 +1,28 @@
 import { Injectable } from '@nestjs/common';
+import Profile from 'src/profile/entities/profile.entity';
+import User from 'src/user/entities/user.entity';
 import { CreateLawfirmDto } from './dto/create-lawfirm.dto';
 import { UpdateLawfirmDto } from './dto/update-lawfirm.dto';
+import LawFirm from './entities/lawfirm.entity';
 
 @Injectable()
 export class LawfirmService {
   create(createLawfirmDto: CreateLawfirmDto) {
-    return 'This action adds a new lawfirm';
+    const user = new User(
+      createLawfirmDto.user.name,
+      createLawfirmDto.user.email,
+      createLawfirmDto.user.phone,
+      createLawfirmDto.user.password,
+    );
+
+    const lawFirm = new LawFirm(createLawfirmDto.name);
+
+    const profiles = [
+      new Profile('Secretary', lawFirm),
+      new Profile('Intern', lawFirm),
+    ];
+
+    return { user, lawFirm, profiles };
   }
 
   findAll() {

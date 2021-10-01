@@ -1,1 +1,9 @@
-export class CreateLawfirmDto {}
+export class CreateLawfirmDto {
+  name: string;
+  user: {
+    name: string;
+    email: string;
+    phone: string;
+    password: string;
+  };
+}
