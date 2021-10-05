@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserService = void 0;
 const common_1 = require("@nestjs/common");
-const PrismaService_1 = require("../database/PrismaService");
+const PrismaService_1 = require("../prisma/PrismaService");
 let UserService = class UserService {
     constructor(prisma) {
         this.prisma = prisma;
@@ -20,7 +20,7 @@ let UserService = class UserService {
         return this.prisma.user.create({ data });
     }
     findAll() {
-        return `This action returns all user`;
+        return this.prisma.user.findMany();
     }
     findOne(id) {
         return `This action returns a #${id} user`;
