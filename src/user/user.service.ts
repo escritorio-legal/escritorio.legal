@@ -9,7 +9,7 @@ import User from './entities/user.entity';
 export class UserService {
   constructor(private prisma: PrismaService) {}
 
-  async createUser(data: Prisma.UserCreateInput): Promise<User> {
+  async createUser(data: CreateUserDto): Promise<User> {
     return this.prisma.user.create({ data });
   }
 
