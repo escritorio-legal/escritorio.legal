@@ -34,12 +34,7 @@ export class LawFirmService {
             assignedAt: new Date(),
             reference: 'Owner',
             user: {
-              create: {
-                name: user.name,
-                email: user.email,
-                phone: user.phone,
-                password: user.password,
-              },
+              create: user,
             },
           },
         },
