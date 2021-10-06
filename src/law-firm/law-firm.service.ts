@@ -10,7 +10,7 @@ import LawFirm from './entities/law-firm.entity';
 export class LawFirmService {
   constructor(private prisma: PrismaService) {}
 
-  create(createLawfirmDto: CreateLawfirmDto) {
+  async create(createLawfirmDto: CreateLawfirmDto) {
     const user = new User(
       createLawfirmDto.user.name,
       createLawfirmDto.user.email,
@@ -25,7 +25,30 @@ export class LawFirmService {
       new Profile('Intern', lawFirm),
     ];
 
-    return { user, lawFirm, profiles };
+    const created = await this.prisma.user.create({
+      data: {
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        password: user.password,
+        UserLawFirm: {
+          create: [
+            {
+              assignedBy: 'Root',
+              assignedAt: new Date(),
+              reference: 'Owner',
+              lawFirm: {
+                create: {
+                  name: lawFirm.name,
+                },
+              },
+            },
+          ],
+        },
+      },
+    });
+
+    return { created };
   }
 
   findAll() {
