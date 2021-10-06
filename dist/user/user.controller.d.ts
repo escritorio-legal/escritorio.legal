@@ -5,8 +5,8 @@ export declare class UserController {
     private readonly userService;
     constructor(userService: UserService);
     create(data: CreateUserDto): Promise<import("./entities/user.entity").default>;
-    findAll(): import(".prisma/client").PrismaPromise<import(".prisma/client").User[]>;
-    findOne(id: string): string;
-    update(id: string, updateUserDto: UpdateUserDto): string;
-    remove(id: string): string;
+    findAll(): Promise<import(".prisma/client").User[]>;
+    findOne(id: string): Promise<import(".prisma/client").User>;
+    update(id: string, updateUserDto: UpdateUserDto): Promise<import(".prisma/client").User>;
+    remove(id: string): Promise<import(".prisma/client").User>;
 }
