@@ -1,26 +1,38 @@
 import { Injectable } from '@nestjs/common';
+import { PrismaService } from 'src/prisma/PrismaService';
 import { CreateLawSuitDto } from './dto/create-law-suit.dto';
 import { UpdateLawSuitDto } from './dto/update-law-suit.dto';
 
 @Injectable()
 export class LawSuitService {
-  create(createLawSuitDto: CreateLawSuitDto) {
-    return 'This action adds a new lawSuit';
+  constructor(private prisma: PrismaService) {}
+
+  async create(CreateLawSuitDto: CreateLawSuitDto) {
+    return await this.prisma.lawSuit.create({ data: CreateLawSuitDto });
   }
 
-  findAll() {
-    return `This action returns all lawSuit`;
+  async findAll() {
+    return await this.prisma.lawSuit.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} lawSuit`;
+  async findOne(id: number) {
+    return await this.prisma.lawSuit.findUnique({
+      where: {
+        id,
+      },
+    });
   }
 
-  update(id: number, updateLawSuitDto: UpdateLawSuitDto) {
-    return `This action updates a #${id} lawSuit`;
+  async update(id: number, UpdateLawSuitDto: UpdateLawSuitDto) {
+    return await this.prisma.lawSuit.update({
+      where: { id },
+      data: UpdateLawSuitDto,
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} lawSuit`;
+  async remove(id: number) {
+    return await this.prisma.lawSuit.delete({
+      where: { id },
+    });
   }
 }
