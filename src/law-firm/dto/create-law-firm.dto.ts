@@ -1,4 +1,4 @@
-export class CreateLawfirmDto {
+export default class CreateLawfirmDto {
   name: string;
   user: {
     name: string;

@@ -1,4 +1,4 @@
-import LawFirm from '../../lawfirm/entities/lawfirm.entity';
+import LawFirm from 'src/law-firm/entities/law-firm.entity';
 
 export default class Profile {
   name: string;

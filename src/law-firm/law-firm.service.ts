@@ -1,12 +1,15 @@
 import { Injectable } from '@nestjs/common';
+import { PrismaService } from 'src/prisma/PrismaService';
 import Profile from 'src/profile/entities/profile.entity';
 import User from 'src/user/entities/user.entity';
-import { CreateLawfirmDto } from './dto/create-lawfirm.dto';
-import { UpdateLawfirmDto } from './dto/update-lawfirm.dto';
-import LawFirm from './entities/lawfirm.entity';
+import CreateLawfirmDto from './dto/create-law-firm.dto';
+import { UpdateLawFirmDto } from './dto/update-law-firm.dto';
+import LawFirm from './entities/law-firm.entity';
 
 @Injectable()
-export class LawfirmService {
+export class LawFirmService {
+  constructor(private prisma: PrismaService) {}
+
   create(createLawfirmDto: CreateLawfirmDto) {
     const user = new User(
       createLawfirmDto.user.name,
@@ -26,18 +29,18 @@ export class LawfirmService {
   }
 
   findAll() {
-    return `This action returns all lawfirm`;
+    return `This action returns all lawFirm`;
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} lawfirm`;
+    return `This action returns a #${id} lawFirm`;
   }
 
-  update(id: number, updateLawfirmDto: UpdateLawfirmDto) {
-    return `This action updates a #${id} lawfirm`;
+  update(id: number, updateLawFirmDto: UpdateLawFirmDto) {
+    return `This action updates a #${id} lawFirm`;
   }
 
   remove(id: number) {
-    return `This action removes a #${id} lawfirm`;
+    return `This action removes a #${id} lawFirm`;
   }
 }
