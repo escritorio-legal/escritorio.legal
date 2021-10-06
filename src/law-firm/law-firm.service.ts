@@ -5,6 +5,7 @@ import User from 'src/user/entities/user.entity';
 import CreateLawfirmDto from './dto/create-law-firm.dto';
 import { UpdateLawFirmDto } from './dto/update-law-firm.dto';
 import LawFirm from './entities/law-firm.entity';
+import LawFirmRepository from './law-firm.repository';
 
 @Injectable()
 export class LawFirmService {
@@ -25,32 +26,14 @@ export class LawFirmService {
       new Profile('Intern', lawFirmObj),
     ];
 
-    const lawFirm = await this.prisma.lawFirm.create({
-      data: {
-        name: lawFirmObj.name,
-        UserLawFirm: {
-          create: {
-            assignedBy: 'root',
-            assignedAt: new Date(),
-            reference: 'Owner',
-            user: {
-              create: user,
-            },
-          },
-        },
-        profiles: {
-          create: [
-            {
-              name: profiles[0].name,
-            },
-            {
-              name: profiles[1].name,
-            },
-          ],
-        },
-      },
-    });
+    const repository = new LawFirmRepository(
+      this.prisma,
+      lawFirmObj,
+      user,
+      profiles,
+    );
 
+    const lawFirm = await repository.create();
     return { lawFirm };
   }
 
