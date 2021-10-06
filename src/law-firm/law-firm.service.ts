@@ -18,37 +18,45 @@ export class LawFirmService {
       createLawfirmDto.user.password,
     );
 
-    const lawFirm = new LawFirm(createLawfirmDto.name);
+    const lawFirmObj = new LawFirm(createLawfirmDto.name);
 
     const profiles = [
-      new Profile('Secretary', lawFirm),
-      new Profile('Intern', lawFirm),
+      new Profile('Secretary', lawFirmObj),
+      new Profile('Intern', lawFirmObj),
     ];
 
-    const created = await this.prisma.user.create({
+    const lawFirm = await this.prisma.lawFirm.create({
       data: {
-        name: user.name,
-        email: user.email,
-        phone: user.phone,
-        password: user.password,
+        name: lawFirmObj.name,
         UserLawFirm: {
+          create: {
+            assignedBy: 'root',
+            assignedAt: new Date(),
+            reference: 'Owner',
+            user: {
+              create: {
+                name: user.name,
+                email: user.email,
+                phone: user.phone,
+                password: user.password,
+              },
+            },
+          },
+        },
+        profiles: {
           create: [
             {
-              assignedBy: 'Root',
-              assignedAt: new Date(),
-              reference: 'Owner',
-              lawFirm: {
-                create: {
-                  name: lawFirm.name,
-                },
-              },
+              name: profiles[0].name,
+            },
+            {
+              name: profiles[1].name,
             },
           ],
         },
       },
     });
 
-    return { created };
+    return { lawFirm };
   }
 
   findAll() {
