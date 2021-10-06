@@ -59,19 +59,30 @@ export class LawFirmService {
     return { lawFirm };
   }
 
-  findAll() {
-    return `This action returns all lawFirm`;
+  async findAll() {
+    return await this.prisma.lawFirm.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} lawFirm`;
+  async findOne(id: number) {
+    return await this.prisma.lawFirm.findUnique({
+      where: {
+        id,
+      },
+    });
   }
 
-  update(id: number, updateLawFirmDto: UpdateLawFirmDto) {
-    return `This action updates a #${id} lawFirm`;
+  async update(id: number, updateLawFirmDto: UpdateLawFirmDto) {
+    return await this.prisma.lawFirm.update({
+      where: { id },
+      data: updateLawFirmDto,
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} lawFirm`;
+  async remove(id: number) {
+    return await this.prisma.lawFirm.delete({
+      where: {
+        id,
+      },
+    });
   }
 }
