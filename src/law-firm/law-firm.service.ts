@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/PrismaService';
 import Profile from 'src/profile/entities/profile.entity';
 import User from 'src/user/entities/user.entity';
 import CreateLawfirmDto from './dto/create-law-firm.dto';
@@ -9,7 +8,7 @@ import LawFirmRepository from './law-firm.repository';
 
 @Injectable()
 export class LawFirmService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private repository: LawFirmRepository) {}
 
   async create(createLawfirmDto: CreateLawfirmDto) {
     const user = new User(
@@ -26,41 +25,23 @@ export class LawFirmService {
       new Profile('Intern', lawFirmObj),
     ];
 
-    const repository = new LawFirmRepository(
-      this.prisma,
-      lawFirmObj,
-      user,
-      profiles,
-    );
-
-    const lawFirm = await repository.create();
+    const lawFirm = await this.repository.create(LawFirm, user, profiles);
     return { lawFirm };
   }
 
   async findAll() {
-    return await this.prisma.lawFirm.findMany();
+    return await this.repository.findAll();
   }
 
   async findOne(id: number) {
-    return await this.prisma.lawFirm.findUnique({
-      where: {
-        id,
-      },
-    });
+    return await this.repository.findOne(id);
   }
 
   async update(id: number, updateLawFirmDto: UpdateLawFirmDto) {
-    return await this.prisma.lawFirm.update({
-      where: { id },
-      data: updateLawFirmDto,
-    });
+    return await this.repository.update(id, updateLawFirmDto);
   }
 
   async remove(id: number) {
-    return await this.prisma.lawFirm.delete({
-      where: {
-        id,
-      },
-    });
+    return await this.repository.remove(id);
   }
 }
