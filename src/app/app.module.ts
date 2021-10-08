@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
-import { LawFirmModule } from 'src/law-firm/law-firm.module';
-import { LawSuitModule } from 'src/law-suit/law-suit.module';
-import { ProfileModule } from 'src/profile/profile.module';
-import { UserModule } from 'src/user/user.module';
+import { LawFirmModule } from '../law-firm/law-firm.module';
+import { LawSuitModule } from '../law-suit/law-suit.module';
+import { ProfileModule } from '../profile/profile.module';
+import { UserModule } from '../user/user.module';
 
 @Module({
-  imports: [LawFirmModule, LawSuitModule, UserModule, ProfileModule],
+  imports: [LawSuitModule, UserModule, ProfileModule, LawFirmModule],
 })
 export class AppModule {}

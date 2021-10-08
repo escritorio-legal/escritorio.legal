@@ -1,4 +1,6 @@
-export default class User {
+import { Prisma } from '.prisma/client';
+
+export default class User implements Prisma.UserCreateInput {
   name: string;
   email: string;
   password: string;

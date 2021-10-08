@@ -7,9 +7,9 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { LawFirmService } from './law-firm.service';
 import CreateLawFirmDto from './dto/create-law-firm.dto';
 import { UpdateLawFirmDto } from './dto/update-law-firm.dto';
+import { LawFirmService } from './law-firm.service';
 
 @Controller('law-firm')
 export class LawFirmController {

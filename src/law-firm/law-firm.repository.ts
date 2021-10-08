@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/PrismaService';
-import Profile from 'src/profile/entities/profile.entity';
-import User from 'src/user/entities/user.entity';
+import { PrismaService } from '../prisma/PrismaService';
+import Profile from '../profile/entities/profile.entity';
+import User from '../user/entities/user.entity';
 import { UpdateLawFirmDto } from './dto/update-law-firm.dto';
 import LawFirm from './entities/law-firm.entity';
 

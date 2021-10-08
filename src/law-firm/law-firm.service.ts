@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import Profile from 'src/profile/entities/profile.entity';
-import User from 'src/user/entities/user.entity';
+import Profile from '../profile/entities/profile.entity';
+import User from '../user/entities/user.entity';
 import CreateLawfirmDto from './dto/create-law-firm.dto';
 import { UpdateLawFirmDto } from './dto/update-law-firm.dto';
 import LawFirm from './entities/law-firm.entity';
@@ -25,7 +25,7 @@ export class LawFirmService {
       new Profile('Intern', lawFirmObj),
     ];
 
-    const lawFirm = await this.repository.create(LawFirm, user, profiles);
+    const lawFirm = await this.repository.create(lawFirmObj, user, profiles);
     return { lawFirm };
   }
 
