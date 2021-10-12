@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import Profile from '../profile/entities/profile.entity';
+import ProfileRepository from '../profile/profile.repository';
 import User from '../user/entities/user.entity';
 import CreateLawfirmDto from './dto/create-law-firm.dto';
 import { UpdateLawFirmDto } from './dto/update-law-firm.dto';
@@ -8,7 +9,10 @@ import LawFirmRepository from './law-firm.repository';
 
 @Injectable()
 export class LawFirmService {
-  constructor(private repository: LawFirmRepository) {}
+  constructor(
+    private repository: LawFirmRepository,
+    private profileRepository: ProfileRepository,
+  ) {}
 
   async create(createLawfirmDto: CreateLawfirmDto) {
     const user = new User(
@@ -17,15 +21,13 @@ export class LawFirmService {
       createLawfirmDto.user.phone,
       createLawfirmDto.user.password,
     );
-
     const lawFirmObj = new LawFirm(createLawfirmDto.name);
-
+    const lawFirm = await this.repository.create(lawFirmObj, user);
     const profiles = [
-      new Profile('Secretary', lawFirmObj),
-      new Profile('Intern', lawFirmObj),
+      new Profile('Secretary', lawFirm.id),
+      new Profile('Inter', lawFirm.id),
     ];
-
-    const lawFirm = await this.repository.create(lawFirmObj, user, profiles);
+    await this.profileRepository.createMany(profiles);
     return { lawFirm };
   }
 

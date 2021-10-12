@@ -1,19 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/PrismaService';
-import Profile from '../profile/entities/profile.entity';
 import User from '../user/entities/user.entity';
 import { UpdateLawFirmDto } from './dto/update-law-firm.dto';
 import LawFirm from './entities/law-firm.entity';
 
 @Injectable()
 export default class LawFirmRepository {
-  lawFirm: LawFirm;
-  user: User;
-  profiles: Profile[];
-
   constructor(private prisma: PrismaService) {}
 
-  async create(lawFirm: LawFirm, user: User, profiles?: Profile[]) {
+  async create(lawFirm: LawFirm, user: User) {
     return await this.prisma.lawFirm.create({
       data: {
         name: lawFirm.name,
@@ -26,16 +21,6 @@ export default class LawFirmRepository {
               create: user,
             },
           },
-        },
-        profiles: {
-          create: [
-            {
-              name: profiles[0].name,
-            },
-            {
-              name: profiles[1].name,
-            },
-          ],
         },
       },
     });
