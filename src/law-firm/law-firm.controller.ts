@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
+import { Public } from '../auth/custom-auth.decorator';
 import CreateLawFirmDto from './dto/create-law-firm.dto';
 import { UpdateLawFirmDto } from './dto/update-law-firm.dto';
 import { LawFirmService } from './law-firm.service';
@@ -15,6 +16,7 @@ import { LawFirmService } from './law-firm.service';
 export class LawFirmController {
   constructor(private readonly lawFirmService: LawFirmService) {}
 
+  @Public()
   @Post()
   create(@Body() createLawFirmDto: CreateLawFirmDto) {
     return this.lawFirmService.create(createLawFirmDto);
