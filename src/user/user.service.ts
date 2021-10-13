@@ -1,49 +1,39 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../prisma/PrismaService';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import User from './entities/user.entity';
+import UserRepository from './user.repository';
 
 @Injectable()
 export class UserService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private userRepository: UserRepository) {}
 
   async createUser(data: CreateUserDto): Promise<User> {
-    return await this.prisma.user.create({ data });
+    const user = new User(data.name, data.email, data.phone, data.password);
+    const a = await this.userRepository.create(user);
+    console.log('a', a);
+    console.log('user', user);
+    return user;
   }
 
   async findAll() {
-    return await this.prisma.user.findMany();
+    return await this.userRepository.findMany();
   }
 
   async findOne(id: number) {
-    return await this.prisma.user.findUnique({
-      where: {
-        id,
-      },
-    });
+    return await this.userRepository.findById(id);
   }
 
   async findByEmail(email: string) {
-    return await this.prisma.user.findUnique({
-      where: {
-        email,
-      },
-    });
+    return await this.userRepository.findByEmail(email);
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
-    return await this.prisma.user.update({
-      where: { id },
-      data: updateUserDto,
-    });
+    return await this.userRepository.update(id, updateUserDto);
   }
 
   async remove(id: number) {
-    return await this.prisma.user.delete({
-      where: {
-        id,
-      },
-    });
+    return await this.userRepository.remove(id);
   }
 }
