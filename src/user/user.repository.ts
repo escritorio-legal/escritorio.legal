@@ -12,7 +12,14 @@ export default class UserRepository {
   }
 
   async findMany() {
-    return this.prisma.user.findMany();
+    return this.prisma.user.findMany({
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        phone: true,
+      },
+    });
   }
 
   async findById(id: number) {

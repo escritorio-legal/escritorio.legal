@@ -9,10 +9,9 @@ import UserRepository from './user.repository';
 export class UserService {
   constructor(private userRepository: UserRepository) {}
 
-  async createUser(data: CreateUserDto): Promise<User> {
+  async create(data: CreateUserDto) {
     const user = new User(data.name, data.email, data.phone, data.password);
-    await this.userRepository.create(user);
-    return user;
+    return await this.userRepository.create(user);
   }
 
   async findAll() {
