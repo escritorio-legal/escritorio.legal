@@ -27,7 +27,7 @@ export class LawSuitController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.lawSuitService.findOne(+id);
+    return this.lawSuitService.findById(+id);
   }
 
   @Patch(':id')

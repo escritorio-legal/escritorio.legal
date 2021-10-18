@@ -1,38 +1,45 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../prisma/PrismaService';
+import UserRepository from '../user/user.repository';
 import { CreateLawSuitDto } from './dto/create-law-suit.dto';
 import { UpdateLawSuitDto } from './dto/update-law-suit.dto';
+import { LawSuit } from './entities/law-suit.entity';
+import { LawSuitRepository } from './law-suit.repository';
 
 @Injectable()
 export class LawSuitService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private lawSuitRepository: LawSuitRepository,
+    private userRepository: UserRepository,
+  ) {}
 
-  async create(CreateLawSuitDto: CreateLawSuitDto) {
-    return await this.prisma.lawSuit.create({ data: CreateLawSuitDto });
+  async create(createLawSuitDto: CreateLawSuitDto) {
+    const user = await this.userRepository.findById(createLawSuitDto.userId);
+    const lawSuit = new LawSuit(
+      createLawSuitDto.name,
+      createLawSuitDto.status,
+      user.id,
+    );
+    return await this.lawSuitRepository.create(lawSuit);
   }
 
   async findAll() {
-    return await this.prisma.lawSuit.findMany();
+    return await this.lawSuitRepository.findAll();
   }
 
-  async findOne(id: number) {
-    return await this.prisma.lawSuit.findUnique({
-      where: {
-        id,
-      },
-    });
+  async findById(id: number) {
+    return await this.lawSuitRepository.findById(id);
   }
 
-  async update(id: number, UpdateLawSuitDto: UpdateLawSuitDto) {
-    return await this.prisma.lawSuit.update({
-      where: { id },
-      data: UpdateLawSuitDto,
-    });
+  async update(id: number, updateLawSuitDto: UpdateLawSuitDto) {
+    const lawSuit = new LawSuit(
+      updateLawSuitDto.name,
+      updateLawSuitDto.status,
+      updateLawSuitDto.userId,
+    );
+    return await this.lawSuitRepository.update(id, lawSuit);
   }
 
   async remove(id: number) {
-    return await this.prisma.lawSuit.delete({
-      where: { id },
-    });
+    return await this.lawSuitRepository.remove(id);
   }
 }

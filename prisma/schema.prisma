@@ -16,7 +16,7 @@ model User {
   name        String
   password    String
   phone       String?
-  process     LawSuit[]
+  lawSuit     LawSuit[]
   UserLawFirm UserLawFirm[]
   UserProfile UserProfile[]
 }

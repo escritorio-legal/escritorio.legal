@@ -1,7 +1,5 @@
-import { Prisma } from '.prisma/client';
-
-export class CreateLawSuitDto implements Prisma.LawSuitCreateInput {
-  user: Prisma.UserCreateNestedOneWithoutProcessInput;
+export class CreateLawSuitDto {
   name: string;
   status: string;
+  userId: number;
 }
