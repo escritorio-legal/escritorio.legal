@@ -27,7 +27,22 @@ export default class LawFirmRepository {
   }
 
   async findAll() {
-    return await this.prisma.lawFirm.findMany();
+    return await this.prisma.lawFirm.findMany({
+      include: {
+        profiles: true,
+        UserLawFirm: {
+          select: {
+            user: {
+              select: {
+                name: true,
+                email: true,
+                phone: true,
+              },
+            },
+          },
+        },
+      },
+    });
   }
 
   async findOne(id: number) {

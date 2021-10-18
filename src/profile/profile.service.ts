@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import LawFirmRepository from '../law-firm/law-firm.repository';
 import createProfileDto from './dto/create-profile.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 import Profile from './entities/profile.entity';

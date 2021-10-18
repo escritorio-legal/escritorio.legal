@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import LawFirm from '../law-firm/entities/law-firm.entity';
 import { PrismaService } from '../prisma/PrismaService';
 import Profile from './entities/profile.entity';
 
@@ -8,7 +9,12 @@ export default class ProfileRepository {
 
   async create(profile: Profile) {
     return await this.prisma.profile.create({
-      data: profile,
+      data: {
+        name: profile.name,
+        lawFirm: {
+          connect: { id: profile.lawFirmId },
+        },
+      },
     });
   }
 
@@ -31,7 +37,10 @@ export default class ProfileRepository {
   async update(id: number, profile: Profile) {
     return await this.prisma.profile.update({
       where: { id },
-      data: profile,
+      data: {
+        name: profile.name,
+        lawFirmId: profile.lawFirmId,
+      },
     });
   }
 
