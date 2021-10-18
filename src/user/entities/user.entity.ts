@@ -1,7 +1,6 @@
-import { Prisma } from '.prisma/client';
 import { genSaltSync, hashSync } from 'bcryptjs';
 
-export default class User implements Prisma.UserCreateInput {
+export default class User {
   id: number;
   name: string;
   email: string;

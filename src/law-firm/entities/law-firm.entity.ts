@@ -1,6 +1,5 @@
-import { Prisma } from '.prisma/client';
-
-export default class LawFirm implements Prisma.LawFirmCreateInput {
+export default class LawFirm {
+  id: number;
   name: string;
 
   constructor(name: string) {

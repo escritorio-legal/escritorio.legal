@@ -1,34 +1,38 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../prisma/PrismaService';
-import CreateProfileDto from './dto/create-profile.dto';
+import createProfileDto from './dto/create-profile.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
+import Profile from './entities/profile.entity';
+import ProfileRepository from './profile.repository';
 
 @Injectable()
 export class ProfileService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private profileRepository: ProfileRepository) {}
 
-  async create(createProfileDto: CreateProfileDto) {
-    return await this.prisma.profile.create({ data: createProfileDto });
+  async create(createProfileDto: createProfileDto) {
+    const profile = new Profile(
+      createProfileDto.name,
+      createProfileDto.lawFirmId,
+    );
+    return await this.profileRepository.create(profile);
   }
 
-  async findAll() {
-    return await this.prisma.profile.findMany();
+  findAll() {
+    return this.profileRepository.findAll();
   }
 
-  async findOne(id: number) {
-    return await this.prisma.profile.findUnique({
-      where: { id },
-    });
+  findById(id: number) {
+    return this.profileRepository.findById(+id);
   }
 
   async update(id: number, updateProfileDto: UpdateProfileDto) {
-    return await this.prisma.profile.update({
-      where: { id },
-      data: updateProfileDto,
-    });
+    const profile = new Profile(
+      updateProfileDto.name,
+      updateProfileDto.lawFirmId,
+    );
+    return await this.profileRepository.update(id, profile);
   }
 
   async remove(id: number) {
-    return await this.prisma.profile.delete({ where: { id } });
+    return await this.profileRepository.remove(id);
   }
 }

@@ -1,7 +1,4 @@
-import { Prisma } from '.prisma/client';
-
-export default class createProfileDto implements Prisma.ProfileCreateInput {
+export default class createProfileDto {
   name: string;
-  LawFirm: Prisma.LawFirmCreateNestedOneWithoutProfilesInput;
-  UserProfile?: Prisma.UserProfileCreateNestedManyWithoutProfileInput;
+  lawFirmId: number;
 }

@@ -1,12 +1,5 @@
-import { Prisma } from '.prisma/client';
-import LawFirm from '../../law-firm/entities/law-firm.entity';
-
-export default class Profile implements Prisma.ProfileCreateInput {
+export default class Profile {
   name: string;
-  id: number;
-  lawFirm: LawFirm;
-  LawFirm: Prisma.LawFirmCreateNestedOneWithoutProfilesInput;
-  UserProfile?: Prisma.UserProfileCreateNestedManyWithoutProfileInput;
   lawFirmId: number;
 
   constructor(name: string, lawFirm: number) {

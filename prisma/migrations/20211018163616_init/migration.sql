@@ -19,7 +19,7 @@ CREATE TABLE "LawFirm" (
 
 -- CreateTable
 CREATE TABLE "UserLawFirm" (
-    "reference" TEXT NOT NULL,
+    "role" TEXT NOT NULL,
     "userId" INTEGER NOT NULL,
     "lawFirmId" INTEGER NOT NULL,
     "assignedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,

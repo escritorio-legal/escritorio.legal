@@ -16,7 +16,7 @@ export default class LawFirmRepository {
           create: {
             assignedBy: 'root',
             assignedAt: new Date(),
-            reference: 'Owner',
+            role: 'Owner',
             user: {
               create: user,
             },

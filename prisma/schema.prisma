@@ -29,7 +29,7 @@ model LawFirm {
 }
 
 model UserLawFirm {
-  reference  String
+  role  String
   user       User     @relation(fields: [userId], references: [id])
   userId     Int
   lawFirm    LawFirm  @relation(fields: [lawFirmId], references: [id])
@@ -54,7 +54,7 @@ model UserProfile {
 model Profile {
   id          Int           @id @default(autoincrement())
   name        String
-  LawFirm     LawFirm       @relation(fields: [lawFirmId], references: [id])
+  lawFirm     LawFirm       @relation(fields: [lawFirmId], references: [id])
   lawFirmId   Int
   UserProfile UserProfile[]
 }
