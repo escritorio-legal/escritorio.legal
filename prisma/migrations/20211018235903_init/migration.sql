@@ -52,7 +52,7 @@ CREATE TABLE "LawSuit" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
     "status" TEXT NOT NULL,
-    "lawSuitId" INTEGER NOT NULL,
+    "userId" INTEGER NOT NULL,
 
     CONSTRAINT "LawSuit_pkey" PRIMARY KEY ("id")
 );
@@ -76,4 +76,4 @@ ALTER TABLE "UserProfile" ADD CONSTRAINT "UserProfile_profileId_fkey" FOREIGN KE
 ALTER TABLE "Profile" ADD CONSTRAINT "Profile_lawFirmId_fkey" FOREIGN KEY ("lawFirmId") REFERENCES "LawFirm"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "LawSuit" ADD CONSTRAINT "LawSuit_lawSuitId_fkey" FOREIGN KEY ("lawSuitId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "LawSuit" ADD CONSTRAINT "LawSuit_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

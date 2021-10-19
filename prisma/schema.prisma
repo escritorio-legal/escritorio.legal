@@ -63,6 +63,6 @@ model LawSuit {
   id        Int    @id @default(autoincrement())
   name      String
   status    String
-  user      User   @relation(fields: [lawSuitId], references: [id])
-  lawSuitId Int
+  user      User   @relation(fields: [userId], references: [id])
+  userId Int
 }
