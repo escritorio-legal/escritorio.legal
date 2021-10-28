@@ -52,4 +52,10 @@ export default class UserRepository {
       },
     });
   }
+
+  async assignProfile(userId: number, profileId: number) {
+    return await this.prisma.userProfile.create({
+      data: { userId, profileId, assignedAt: new Date(), assignedBy: 'root' },
+    });
+  }
 }

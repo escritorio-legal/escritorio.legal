@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import LawFirmRepository from '../law-firm/law-firm.repository';
 import createProfileDto from './dto/create-profile.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 import Profile from './entities/profile.entity';
@@ -22,7 +21,7 @@ export class ProfileService {
   }
 
   findById(id: number) {
-    return this.profileRepository.findById(+id);
+    return this.profileRepository.findOne(+id);
   }
 
   async update(id: number, updateProfileDto: UpdateProfileDto) {

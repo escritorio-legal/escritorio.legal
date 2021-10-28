@@ -12,7 +12,7 @@ export default class LawFirmRepository {
     return await this.prisma.lawFirm.create({
       data: {
         name: lawFirm.name,
-        UserLawFirm: {
+        userLawFirm: {
           create: {
             assignedBy: 'root',
             assignedAt: new Date(),
@@ -30,7 +30,7 @@ export default class LawFirmRepository {
     return await this.prisma.lawFirm.findMany({
       include: {
         profiles: true,
-        UserLawFirm: {
+        userLawFirm: {
           select: {
             user: {
               select: {

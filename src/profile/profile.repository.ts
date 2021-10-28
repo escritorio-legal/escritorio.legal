@@ -22,10 +22,8 @@ export default class ProfileRepository {
     return await this.prisma.profile.findMany();
   }
 
-  async findById(id: number) {
-    await this.prisma.profile.findUnique({
-      where: { id },
-    });
+  async findOne(id: number) {
+    return await this.prisma.profile.findUnique({ where: { id } });
   }
 
   async update(id: number, profile: Profile) {
