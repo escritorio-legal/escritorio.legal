@@ -10,6 +10,7 @@ import {
 import { PermissionService } from './permission.service';
 import { CreatePermissionDto } from './dto/create-permission.dto';
 import { UpdatePermissionDto } from './dto/update-permission.dto';
+import { CreateManyPermissionDto } from './dto/create-many-permission.dto';
 
 @Controller('permission')
 export class PermissionController {
@@ -18,6 +19,11 @@ export class PermissionController {
   @Post()
   create(@Body() createPermissionDto: CreatePermissionDto) {
     return this.permissionService.create(createPermissionDto);
+  }
+
+  @Post('many')
+  createMany(@Body() createManyPermissionDto: CreateManyPermissionDto) {
+    return this.permissionService.createMany(createManyPermissionDto)
   }
 
   @Get()

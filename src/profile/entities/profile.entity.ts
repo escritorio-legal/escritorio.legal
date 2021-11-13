@@ -1,6 +1,7 @@
 import { Prisma } from '.prisma/client';
 
 export default class Profile implements Prisma.ProfileUncheckedCreateInput {
+  id: number;
   name: string;
   lawFirmId: number;
 

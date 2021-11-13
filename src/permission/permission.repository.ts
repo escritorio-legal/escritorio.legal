@@ -6,10 +6,15 @@ import { Permission } from './entities/permission.entity';
 export default class PermissionRepository {
   constructor(private prisma: PrismaService) {}
   async create(permission: Permission) {
-    return await this.prisma.permission.create({ data: permission });
+    return await this.prisma.permission.create({ 
+      data: {
+        namespace: permission.namespace,
+        profileId: permission.profile.id
+      } 
+    });
   }
 
-  async createMany(permissions: Permission[]) {
+  async createMany(permissions: Array<Permission>) {
     return await this.prisma.permission.createMany({ data: permissions });
   }
 

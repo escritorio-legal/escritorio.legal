@@ -48,6 +48,14 @@ CREATE TABLE "Profile" (
 );
 
 -- CreateTable
+CREATE TABLE "Permission" (
+    "namespace" TEXT NOT NULL,
+    "profileId" INTEGER NOT NULL,
+
+    CONSTRAINT "Permission_pkey" PRIMARY KEY ("profileId")
+);
+
+-- CreateTable
 CREATE TABLE "LawSuit" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
@@ -74,6 +82,9 @@ ALTER TABLE "UserProfile" ADD CONSTRAINT "UserProfile_profileId_fkey" FOREIGN KE
 
 -- AddForeignKey
 ALTER TABLE "Profile" ADD CONSTRAINT "Profile_lawFirmId_fkey" FOREIGN KEY ("lawFirmId") REFERENCES "LawFirm"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Permission" ADD CONSTRAINT "Permission_profileId_fkey" FOREIGN KEY ("profileId") REFERENCES "Profile"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "LawSuit" ADD CONSTRAINT "LawSuit_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
