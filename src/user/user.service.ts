@@ -14,8 +14,9 @@ export class UserService {
     private profileRepository: ProfileRepository,
   ) {}
 
-  async create(data: CreateUserDto) {
-    const user = new User(data.name, data.email, data.phone, data.password);
+  async create(createUserDto: CreateUserDto) {
+    const { name, email, phone, password } = createUserDto;
+    const user = new User(name, email, phone, password);
     return await this.userRepository.create(user);
   }
 
@@ -39,9 +40,10 @@ export class UserService {
     return await this.userRepository.remove(id);
   }
 
-  async assignProfile(data: AssignProfileDto) {
-    const user = await this.userRepository.findById(data.userId);
-    const profile = await this.profileRepository.findOne(data.profileId);
+  async assignProfile(assignProfileDto: AssignProfileDto) {
+    const { userId, profileId } = assignProfileDto;
+    const user = await this.userRepository.findById(userId);
+    const profile = await this.profileRepository.findOne(profileId);
 
     if (!user) {
       throw new Error('User not found!');
