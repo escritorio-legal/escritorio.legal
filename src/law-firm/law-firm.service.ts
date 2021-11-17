@@ -15,14 +15,10 @@ export class LawFirmService {
   ) {}
 
   async create(createLawfirmDto: CreateLawfirmDto) {
-    const user = new User(
-      createLawfirmDto.user.name,
-      createLawfirmDto.user.email,
-      createLawfirmDto.user.phone,
-      createLawfirmDto.user.password,
-    );
-    const lawFirmObj = new LawFirm(createLawfirmDto.name);
-    const lawFirm = await this.repository.create(lawFirmObj, user);
+    const { name, user } = createLawfirmDto;
+    const userObj = new User(user.name, user.email, user.phone, user.password);
+    const lawFirmObj = new LawFirm(name);
+    const lawFirm = await this.repository.create(lawFirmObj, userObj);
     const profiles = [
       new Profile('Secretary', lawFirm.id),
       new Profile('Inter', lawFirm.id),
