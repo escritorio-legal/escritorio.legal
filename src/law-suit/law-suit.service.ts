@@ -13,12 +13,9 @@ export class LawSuitService {
   ) {}
 
   async create(createLawSuitDto: CreateLawSuitDto) {
+    const { name, status } = createLawSuitDto;
     const user = await this.userRepository.findById(createLawSuitDto.userId);
-    const lawSuit = new LawSuit(
-      createLawSuitDto.name,
-      createLawSuitDto.status,
-      user.id,
-    );
+    const lawSuit = new LawSuit(name, status, user.id);
     return await this.lawSuitRepository.create(lawSuit);
   }
 
@@ -31,11 +28,8 @@ export class LawSuitService {
   }
 
   async update(id: number, updateLawSuitDto: UpdateLawSuitDto) {
-    const lawSuit = new LawSuit(
-      updateLawSuitDto.name,
-      updateLawSuitDto.status,
-      updateLawSuitDto.userId,
-    );
+    const { name, status, userId } = updateLawSuitDto;
+    const lawSuit = new LawSuit(name, status, userId);
     return await this.lawSuitRepository.update(id, lawSuit);
   }
 
