@@ -9,10 +9,8 @@ export class ProfileService {
   constructor(private profileRepository: ProfileRepository) {}
 
   async create(createProfileDto: createProfileDto) {
-    const profile = new Profile(
-      createProfileDto.name,
-      createProfileDto.lawFirmId,
-    );
+    const { name, lawFirmId } = createProfileDto;
+    const profile = new Profile(name, lawFirmId);
     return await this.profileRepository.create(profile);
   }
 
@@ -25,10 +23,8 @@ export class ProfileService {
   }
 
   async update(id: number, updateProfileDto: UpdateProfileDto) {
-    const profile = new Profile(
-      updateProfileDto.name,
-      updateProfileDto.lawFirmId,
-    );
+    const { name, lawFirmId } = updateProfileDto;
+    const profile = new Profile(name, lawFirmId);
     return await this.profileRepository.update(id, profile);
   }
 
