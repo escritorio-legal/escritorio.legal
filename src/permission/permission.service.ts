@@ -8,29 +8,28 @@ import PermissionRepository from './permission.repository';
 
 @Injectable()
 export class PermissionService {
-  permissionsList: Array<Permission> = [];
-
   constructor(
-    private permissionRepository: PermissionRepository, 
-    private profileRepository: ProfileRepository) {}
+    private permissionRepository: PermissionRepository,
+    private profileRepository: ProfileRepository,
+  ) {}
 
   async create(createPermissionDto: CreatePermissionDto) {
     const { profileId, namespace } = createPermissionDto;
-    const profile = await this.profileRepository.findOne(profileId)
-    const permission = new Permission(profile, namespace)
+    const profile = await this.profileRepository.findOne(profileId);
+    const permission = new Permission(profile, namespace);
     return await this.permissionRepository.create(permission);
   }
 
   async createMany(createManyPermissionDto: CreateManyPermissionDto) {
     const { profileId, permissions } = createManyPermissionDto;
-    const profile = await this.profileRepository.findOne(profileId)
-    console.log('arr', this.permissionsList)
-    permissions.forEach(permission => {
-      this.permissionsList.push(new Permission(profile, permission.namespace))
-    })
-   //return await this.permissionRepository.createMany(this.permissionsList);
+    const profile = await this.profileRepository.findOne(profileId);
+    const permissionList = [];
+    permissions.forEach((permission) => {
+      permissionList.push(new Permission(profile, permission.namespace));
+    });
+    return permissionList;
+    //return await this.permissionRepository.createMany(this.permissionsList);
   }
-
 
   findAll() {
     return `This action returns all permission`;
